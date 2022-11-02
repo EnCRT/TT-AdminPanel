@@ -1,0 +1,16 @@
+<div class="aside">
+    <div class="aside__top logo">
+        <a href="*" class="logo__link">
+            <img src="/assets/images/app-logo.png" alt="Logo" class="logo__img">
+            <span class="logo__title">Arrived Admin</span>
+        </a>
+    </div>
+    <div class="aside__menu">
+        <div *ngFor="let item of asideItems" class="aside__menu-item menu-item">
+                <a href="#" class="menu-item__container" [class]="item.active ? 'menu-item__container--active': ''">
+                    <img [src]="item.icon" [alt]="item.title" class="menu-item__img">
+                    <p class="menu-item__name" [class]="item.active ? 'menu-item__name--active': ''">{{ item.title }}</p>
+                </a>
+        </div>
+    </div>
+</div>
