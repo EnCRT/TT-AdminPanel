@@ -11,9 +11,15 @@
         ></button-custom>
       </div>
       <div class="content__top-actions-r">
+        <custom-dd
+          [options]="states"
+          (valueChecked)="filterUsersByActivity($event)"
+          theme="blue"
+        ></custom-dd>
         <button-custom title="Import Worker" theme="blue"></button-custom>
         <button-custom title="+ Add Worker" theme="dark"></button-custom>
       </div>
     </div>
+    <users-table></users-table>
   </section>
 </div>

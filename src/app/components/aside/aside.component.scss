@@ -1,5 +1,6 @@
 .aside {
     display: flex;
+    position: fixed;
     flex-direction: column;
     background-color: var(--primary2);
     height: 100vh;

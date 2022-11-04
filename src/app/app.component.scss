@@ -14,13 +14,11 @@
 @font-face {
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
-    font-weight: 400;
     src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 }
 @font-face {
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    font-weight: 400;
     src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 }
 html {
@@ -87,5 +85,6 @@ table {
         display: flex;
         flex-direction: column;
         width: 100%;
+        padding-left: var(--aside-width);
     }
 }

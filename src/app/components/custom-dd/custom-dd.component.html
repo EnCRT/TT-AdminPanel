@@ -1,0 +1,25 @@
+<div class="dd-menu-container" [class]="paginator ? 'paginator' : ''">
+  <div class="button" [class]="theme" (click)="menuOpen()">
+    <p class="button__title">
+      {{ title || options[0]?.key || "Select value" }}
+    </p>
+    <div
+      class="dd-menu__image"
+      [class]="isOpened ? 'dd-menu__image--rotate ' + theme : theme"
+    ></div>
+  </div>
+  <div *ngIf="isOpened" class="dd-menu-bg" (click)="menuOpen()"></div>
+  <div
+    class="dd-menu"
+    [class]="theme"
+    [class]="isOpened ? '' : 'dd-menu--closed'"
+  >
+    <p
+      *ngFor="let option of options"
+      class="dd-menu__value"
+      (click)="menuOpen(option)"
+    >
+      {{ option.key }}
+    </p>
+  </div>
+</div>

@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageComponent implements OnInit {
 
+  states: any[] = [
+    {key: 'Approve All', value: true},
+    {key: 'Message All', value: false},
+  ]
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  filterUsersByActivity(value: any): void {
+    console.log(value);
   }
 
 }

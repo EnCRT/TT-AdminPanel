@@ -1,1 +1,234 @@
-<p>users-table works!</p>
+<div>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 users-table"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-check-container">
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()"
+          >
+          </mat-checkbox>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            Worker Name
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input type="text" class="header-actions__input header-actions__input--name" placeholder="Name" />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="users-table__cell">
+          <img
+            [src]="element.avatar"
+            alt="Avatar"
+            class="users-table__person-avatar"
+          />
+          <p class="users-table__cell-text">{{ element.name }}</p>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            Email Address
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input
+            type="text"
+            class="header-actions__input header-actions__input--mail"
+            placeholder="Email"
+          />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.mail }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            Phone Number
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input
+            type="text"
+            class="header-actions__input header-actions__input--phone"
+            placeholder="Number"
+          />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            City
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input type="text" class="header-actions__input header-actions__input--city" />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            State
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input type="text" class="header-actions__input" />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">
+            Active
+            <img
+              src="/assets/images/icons/swap.svg"
+              alt=""
+              class="header-actions__sorting-img"
+            />
+          </div>
+          <input type="text" class="header-actions__input" />
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div
+          class="users-table__activity-badge"
+          [class]="
+            element.isActive
+              ? 'users-table__activity-badge--active'
+              : 'users-table__activity-badge--dissabled'
+          "
+        >
+          {{ element.isActive ? "Active" : "Inactive" }}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="header-actions">
+          <div class="header-actions__title">Action</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="users-table__actions">
+          <div class="users-table__actions-item">
+            <img
+              src="/assets/images/icons/user.svg"
+              alt="Profile"
+              class="users-table__actions-img"
+            />
+          </div>
+          <div class="users-table__actions-item">
+            <img
+              src="/assets/images/icons/message-xs.svg"
+              alt="Profile"
+              class="users-table__actions-img"
+            />
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selection.toggle(row)"
+    ></tr>
+  </table>
+  <div class="paginator">
+    <p class="paginator__lable">Showing 1 to 10 of 200</p>
+    <div class="paginator__map">
+      <img
+        src="/assets/images/icons/arrow-left2.svg"
+        alt="First"
+        class="paginator__arrow"
+      />
+      <img
+        src="/assets/images/icons/arrow-left1.svg"
+        alt="Prev"
+        class="paginator__arrow"
+      />
+      <div class="paginator__pages-map">
+        <span
+          class="paginator__pages-map-item paginator__pages-map-item--active"
+          >1</span
+        >
+        <span class="paginator__pages-map-item">2</span>
+        <span class="paginator__pages-map-item">3</span>
+        <span class="paginator__pages-map-item">4</span>
+        <span class="paginator__pages-map-item">5</span>
+      </div>
+      <img
+        src="/assets/images/icons/arrow-right1.svg"
+        alt="Next"
+        class="paginator__arrow"
+      />
+      <img
+        src="/assets/images/icons/arrow-right2.svg"
+        alt="Last"
+        class="paginator__arrow"
+      />
+    </div>
+    <custom-dd
+		[paginator]="true"
+      	[options]="itemsPossibleQuantities"
+      	theme="transparent"
+    ></custom-dd>
+  </div>
+</div>
